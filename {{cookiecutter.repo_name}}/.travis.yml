@@ -1,0 +1,12 @@
+language: python
+
+env:
+    matrix:
+        - TOX_ENV=py27
+        - TOX_ENV=py34
+
+before_script:
+    - pip install tox
+
+script:
+    - tox -e ${TOX_ENV}

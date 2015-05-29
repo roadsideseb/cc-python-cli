@@ -1,0 +1,9 @@
+*.sw[a-z]
+*.py[cox]
+
+.coverage
+
+.cache/
+.tox/
+
+htmlcov/

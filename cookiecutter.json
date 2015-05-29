@@ -1,0 +1,8 @@
+{
+  "repo_name": "my-python-cli",
+  "package_name": "package_name",
+  "cli_name": "cli_name",
+  "author_name": "Sebastian Vetter",
+  "author_email": "seb@roadsi.de",
+  "year": "2015"
+}
