@@ -1,3 +1,4 @@
 tox
 pytest
 pytest-cache
+rstcheck
