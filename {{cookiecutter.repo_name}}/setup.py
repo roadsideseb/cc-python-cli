@@ -26,11 +26,11 @@ setup(
     version='0.0.0',
     description="{{cookiecutter.description}}",
     long_description="\n\n".join([open("README.rst").read()]),
-    license=open('LICENSE').read(),
+    license='MIT',
     author="{{cookiecutter.author_name}}",
     author_email="{{cookiecutter.author_email}}",
     url="https://{{cookiecutter.repo_name}}.readthedocs.org",
-    package=['{{cookiecutter.package_name}}'],
+    packages=['{{cookiecutter.package_name}}'],
     install_requires=requires,
     entry_points={'console_scripts': [
         '{{cookiecutter.cli_name}} = {{cookiecutter.package_name}}.cli:main']},
