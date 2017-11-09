@@ -1,9 +1,12 @@
 *.sw[a-z]
 *.py[cox]
+*.sqlite
 
+.env*
 .coverage
 
 .cache/
 .tox/
+*.egg-info/
 
 htmlcov/
