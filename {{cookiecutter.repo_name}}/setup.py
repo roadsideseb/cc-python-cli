@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 requires = ['click']
@@ -30,7 +30,7 @@ setup(
     author="{{cookiecutter.author_name}}",
     author_email="{{cookiecutter.author_email}}",
     url="https://{{cookiecutter.repo_name}}.readthedocs.org",
-    packages=['{{cookiecutter.package_name}}'],
+    packages=find_packages(),
     install_requires=requires,
     entry_points={'console_scripts': [
         '{{cookiecutter.cli_name}} = {{cookiecutter.package_name}}.cli:main']},
