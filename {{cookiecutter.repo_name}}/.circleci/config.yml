@@ -1,0 +1,73 @@
+machine:
+    python:
+        version: 3.6.1
+    services:
+        - redis
+        - postgresql
+
+dependencies:
+    pre:
+
+test:
+    pre:
+
+
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.1
+      
+      - image: circleci/postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: ""
+
+    environment:
+        DATABASE_URL: postgresql://ubuntu@127.0.0.1:5432/circle_test
+        REDIS_URL: redis://127.0.0.1:6379/0
+        DJANGO_SECRET_KEY: secret key just for testing
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      {% raw %}
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "setup.py" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -e ".[dev]"
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "setup.py" }}
+      {% endraw %}
+        
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            py.test --cov {{cookiecutter.package_name}}
+            flake8 {{cookiecutter.package_name}}
+            black --check {{cookiecutter.package_name}}
+
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
