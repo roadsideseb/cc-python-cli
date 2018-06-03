@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
 import sys
 
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
 requires = ['click']
-tests_require = ['pytest', 'pytest-cache', 'pytest-cov']
+tests_requires = ['pytest', 'pytest-cache', 'pytest-cov']
+lint_requires = ['flake8', 'black']
+dev_requires = requires + tests_requires + lint_requires
 
 
 class PyTest(TestCommand):
@@ -35,14 +36,13 @@ setup(
     entry_points={'console_scripts': [
         '{{cookiecutter.cli_name}} = {{cookiecutter.package_name}}.cli:main']},
     classifiers=[
-        'Development Status :: 1 - Planning',
         'License :: OSI Approved :: MIT License',
-        'Intended Audience :: Developers',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: Implementation :: CPython'],
-    extras_require={'test': tests_require},
+    extras_require={
+        'test': tests_requires,
+        'dev': dev_requires,
+        'lint': lint_requires,
+    },
     cmdclass={'test': PyTest})
