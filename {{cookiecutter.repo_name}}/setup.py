@@ -1,26 +1,11 @@
 import sys
 
 from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
 
 requires = ["click"]
 tests_requires = ["pytest", "pytest-cache", "pytest-cov"]
 lint_requires = ["flake8", "black"]
-dev_requires = requires + tests_requires + lint_requires
-
-
-class PyTest(TestCommand):
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-
-    def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-
-        errno = pytest.main(self.test_args)
-        sys.exit(errno)
+dev_requires = ["bumpversion"] + requires + tests_requires + lint_requires
 
 
 setup(
@@ -46,5 +31,4 @@ setup(
         "Programming Language :: Python :: Implementation :: CPython",
     ],
     extras_require={"test": tests_requires, "dev": dev_requires, "lint": lint_requires},
-    cmdclass={"test": PyTest},
 )
